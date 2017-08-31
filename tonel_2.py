@@ -85,7 +85,6 @@ OX = geompy.MakeVectorDXDYDZ(1, 0, 0)
 OY = geompy.MakeVectorDXDYDZ(0, 1, 0)
 OZ = geompy.MakeVectorDXDYDZ(0, 0, 1)
 
-
 arcs = list()
 vertexes = list()
 
@@ -101,16 +100,14 @@ y_fin = 0
 make_arcs_and_vertexes(arcs, vertexes, x_0, y_0, x_fin, y_fin, x_step, y_step)
 
 outer_vertexes = [vertexes[0], geompy.MakeVertex(-100, 100, 0), geompy.MakeVertex(-100, -100, 0),
-                  geompy.MakeVertex(100, -100, 0), vertexes[len(vertexes) - 1] ]
+                  geompy.MakeVertex(100, -100, 0), vertexes[len(vertexes) - 1]]
 
-
-Line_1 = geompy.MakeLineTwoPnt(outer_vertexes[0], outer_vertexes[1])
-Line_2 = geompy.MakeLineTwoPnt(outer_vertexes[1], outer_vertexes[2])
-Line_3 = geompy.MakeLineTwoPnt(outer_vertexes[2], outer_vertexes[3])
-Line_4 = geompy.MakeLineTwoPnt(outer_vertexes[4], outer_vertexes[5])
+lines = []
+for i in range(4):
+    lines.append(geompy.MakeLineTwoPnt(outer_vertexes[i], outer_vertexes[i + 1]))
 
 elems = list()
-elems.extend([Vertex_1, Vertex_2, Vertex_3, Vertex_4, Vertex_5])
+elems.extend(lines)
 elems.extend(arcs)
 
 Face_1 = geompy.MakeFaceWires(elems, 1)
@@ -122,36 +119,22 @@ geompy.addToStudy(OX, 'OX')
 geompy.addToStudy(OY, 'OY')
 geompy.addToStudy(OZ, 'OZ')
 
+for v in range(len(vertexes)):
+    geompy.addToStudy(vertexes[v], 'Vertex_{}'.format(v))
 
-geompy.addToStudy(Vertex_1, 'Vertex_1')
-geompy.addToStudy(Vertex_2, 'Vertex_2')
-geompy.addToStudy(Vertex_3, 'Vertex_3')
-geompy.addToStudy(Vertex_4, 'Vertex_4')
-geompy.addToStudy(Line_1, 'Line_1')
-geompy.addToStudy(Line_2, 'Line_2')
-geompy.addToStudy(Line_3, 'Line_3')
-geompy.addToStudyInFather(Line_3, Line_3_vertex_3, 'Line_3:vertex_3')
-geompy.addToStudyInFather(Line_1, Line_1_vertex_2, 'Line_1:vertex_2')
-geompy.addToStudy(Line_4, 'Line_4')
+for outer_v in range(1, len(outer_vertexes) - 1, 1):
+    geompy.addToStudy(outer_vertexes[outer_v], 'Outer_Vertex{}'.format(outer_v))
+
+for l in range(len(lines)):
+    geompy.addToStudy(lines[l], 'Line_{}'.format(l))
+
+for a in range(len(arcs)):
+    geompy.addToStudy(arcs[a], 'Arc_{}'.format(a))
+
 geompy.addToStudy(Face_1, 'Face_1')
 geompy.addToStudy(Disk_1, 'Disk_1')
 geompy.addToStudy(Cut_1, 'Cut_1')
 
-for i in range(len(vertexes)):
-  geompy.addToStudy(vertexes[i], 'Ve')
-  geompy.addToStudy(vertex)
-geompy.addToStudy(Face_1_1, 'Face_1')
-geompy.addToStudy(Disk_1_1, 'Disk_1')
-geompy.addToStudy(Cut_1_1, 'Cut_1')
-#
-# geompy.addToStudy(Vertex_5, 'Vertex_5')
-# geompy.addToStudy(Vertex_6, 'Vertex_6')
-# geompy.addToStudy(Vertex_7, 'Vertex_7')
-# geompy.addToStudy(Vertex_8, 'Vertex_8')
-# geompy.addToStudy(Vertex_9, 'Vertex_9')
-# geompy.addToStudy(Arc_1, 'Arc_1')
-# geompy.addToStudyInFather(Arc_1, Arc_1_vertex_3, 'Arc_1:vertex_3')
-# geompy.addToStudy(Arc_2, 'Arc_2')
 
 if salome.sg.hasDesktop():
     salome.sg.updateObjBrowser(True)
