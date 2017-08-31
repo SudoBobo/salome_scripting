@@ -25,31 +25,6 @@ import math
 import SALOMEDS
 
 
-class dot():
-    def __init__(self, x, y):
-        self._x = x
-        self._y = y
-
-    x = property()
-    y = property()
-
-    @x.getter
-    def x(self):
-        return self._x
-
-    @x.setter
-    def x(self, value):
-        self._x = value
-
-    @y.getter
-    def y(self):
-        return self._y
-
-    @y.setter
-    def y(self, value):
-        self._y = value
-
-
 def make_arcs_and_vertexes(arcs, vertexes, x_0, y_0, x_fin, y_fin, x_step, y_step):
     x = x_0
     y = y_0
