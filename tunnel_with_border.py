@@ -43,6 +43,12 @@ def create_border(x_0, y_0, x_fin, y_fin, step, border_vertexes, border_lines, c
         x = x + step
         y = k * x + a + random.random() * coef * step
 
+        if y > y_0:
+            y = y_0
+
+        if y < y_fin:
+            y = y_fin
+
         new_vertex = geompy.MakeVertex(x, y, 0)
         border_vertexes.append(new_vertex)
 
