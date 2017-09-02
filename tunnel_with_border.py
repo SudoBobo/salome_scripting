@@ -76,7 +76,7 @@ trap_vertexes = [geompy.MakeVertex(x_0, y_0, 0), geompy.MakeVertex(-20*sc, 20*sc
 trap_lines = []
 for i in range(len(trap_vertexes) - 1):
     trap_lines.append(geompy.MakeLineTwoPnt(trap_vertexes[i], trap_vertexes[i + 1]))
-trap_lines.append(geompy.MakeLineTwoPnt(trap_vertexes[3], trap_vertexes[0]))
+# trap_lines.append(geompy.MakeLineTwoPnt(trap_vertexes[3], trap_vertexes[0]))
 
 #border created
 border_vertexes = list()
@@ -105,14 +105,14 @@ create_border(x_0, y_0, x_fin, y_fin, step, triangle_border_vertexes, triangle_b
 
 
 # create face_1 (don't forget to cut out tunnel), face_2, compound
-tunnel_face = geompy.MakeFaceWires([tunnel_arc, tunnel_line], 1)
-trap_face = geompy.MakeFaceWires(trap_lines + border_lines, 1)
-
-cut_trap_face = geompy.MakeCutList(trap_face, [tunnel_face], True)
-
-triangle_face = geompy.MakeFaceWires(triangle_lines + triangle_border_lines)
-
-Compound = geompy.MakeCompound([cut_trap_face, triangle_face])
+# tunnel_face = geompy.MakeFaceWires([tunnel_arc, tunnel_line], 1)
+# trap_face = geompy.MakeFaceWires(trap_lines + border_lines, 1)
+#
+# cut_trap_face = geompy.MakeCutList(trap_face, [tunnel_face], True)
+#
+# triangle_face = geompy.MakeFaceWires(triangle_lines + triangle_border_lines, 1)
+#
+# Compound = geompy.MakeCompound([cut_trap_face, triangle_face])
 
 geompy.addToStudy(O, 'O')
 geompy.addToStudy(OX, 'OX')
@@ -121,7 +121,7 @@ geompy.addToStudy(OZ, 'OZ')
 
 
 all_vertexes = trap_vertexes + tunnel_vertexes + border_vertexes + triangle_vertexes + triangle_border_vertexes
-all_lines = trap_lines + tunnel_line + border_lines + triangle_lines + triangle_border_lines
+all_lines = trap_lines + [tunnel_line] + border_lines + triangle_lines + triangle_border_lines
 all_arcs = [tunnel_arc]
 
 for v in range(len(all_vertexes)):
@@ -134,11 +134,11 @@ for a in range(len(all_arcs)):
     geompy.addToStudy(all_arcs[a], 'Arc_{}'.format(a))
 
 
-geompy.addToStudy(tunnel_face, 'tunnel_face')
-geompy.addToStudy(trap_face, 'trap_face')
-geompy.addToStudy(cut_trap_face, 'cut_trap_face')
-geompy.addToStudy(triangle_face, 'triangle_face')
-geompy.addToStudy(Compound, 'Compound')
+# geompy.addToStudy(tunnel_face, 'tunnel_face')
+# geompy.addToStudy(trap_face, 'trap_face')
+# geompy.addToStudy(cut_trap_face, 'cut_trap_face')
+# geompy.addToStudy(triangle_face, 'triangle_face')
+# geompy.addToStudy(Compound, 'Compound')
 
 if salome.sg.hasDesktop():
     salome.sg.updateObjBrowser(True)

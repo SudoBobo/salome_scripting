@@ -70,11 +70,11 @@ x_step = 5
 y_step = -5
 
 x_fin = 100
-y_fin = 0
+y_fin = -100
 
 make_arcs_and_vertexes(arcs, vertexes, x_0, y_0, x_fin, y_fin, x_step, y_step)
 
-outer_vertexes = [vertexes[0], geompy.MakeVertex(-100, 100, 0), geompy.MakeVertex(-100, -100, 0),
+outer_vertexes = [vertexes[0], geompy.MakeVertex(-200, 100, 0), geompy.MakeVertex(-200, -100, 0),
                   geompy.MakeVertex(100, -100, 0), vertexes[len(vertexes) - 1]]
 
 lines = []
